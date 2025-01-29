@@ -1,16 +1,41 @@
-# This is a sample Python script.
+import cv2
+import numpy as np
+cap = cv2.VideoCapture(0)
+kernel = np.ones((3,3), np.uint8)
+while True:
+    success, img = cap.read()
+    # img = cv2.GaussianBlur(img, (5, 5), 0)
+    img = cv2.Canny(img, 90, 90)
+    # img = cv2.dilate(img, kernel, iterations=1)
+    # img = cv2.erode(img, kernel, iterations=1)
+    cv2.imshow("Video", img)
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+img = cv2.imread('images/image1.webp')
 
+#   Ресайз изображения
+divider = 1
+img = cv2.resize(img, (int(img.shape[1] // divider), int(img.shape[0] // divider)))
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+#   Приведение к градациям серого
+img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
+# #   Блюр изображения
+# img = cv2.GaussianBlur(img, (1,1), 0)
+# cv2.imshow('Blured', img)
+# cv2.waitKey(0)
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+#   Нахождение границ
+kernel = np.ones((5,5), np.uint8)
+img = cv2.Canny(img, 500, 500)
+img = cv2.dilate(img, kernel, iterations=1)
+img = cv2.erode(img, kernel, iterations=1)
+# cv2.imshow('Canned', img)
+# cv2.waitKey(0)
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+#   Обрезка изображения
+# slice_x = (300,500)
+# slice_y = (300,500)
+# cv2.imshow('Brith-miled', img[slice_y[0]:slice_y[1], slice_x[0]:slice_x[1]])
+# cv2.waitKey(0)
