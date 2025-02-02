@@ -11,7 +11,6 @@ while True:
     cv2.imshow("Video", img)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
-
 # img = cv2.imread('images/people2.jpg')
 # img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 #
