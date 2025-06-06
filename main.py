@@ -1,13 +1,13 @@
 import cv2
 import numpy as np
-cap = cv2.VideoCapture(0)
-kernel = np.ones((3,3), np.uint8)
+cap = cv2.VideoCapture(1)
+kernel = np.ones((5,5), np.uint8)
 while True:
     success, img = cap.read()
-    # img = cv2.GaussianBlur(img, (5, 5), 0)
+    # img = cv2.GaussianBlur(img, (13, 13), 0)
     img = cv2.Canny(img, 90, 90)
-    # img = cv2.dilate(img, kernel, iterations=1)
-    # img = cv2.erode(img, kernel, iterations=1)
+    img = cv2.dilate(img, kernel, iterations=2)
+    img = cv2.erode(img, kernel, iterations=1)
     cv2.imshow("Video", img)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
